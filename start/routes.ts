@@ -23,4 +23,8 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.get('/login/auth0', 'AuthController.auth0')
 Route.get('/authorized/auth0', 'AuthController.auth0Callback')
 
-Route.get('/me', 'AuthController.me').middleware('auth')
+Route.group(() => {
+  Route.get('/me', 'AuthController.me')
+
+  Route.resource('/applications', 'ApplicationsController').apiOnly()
+}).middleware('auth')
