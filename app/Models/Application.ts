@@ -1,9 +1,19 @@
 import { DateTime } from 'luxon'
-import { afterFetch, BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import {
+  afterFetch,
+  BaseModel,
+  BelongsTo,
+  belongsTo,
+  column,
+  computed,
+  HasMany,
+  hasMany,
+} from '@ioc:Adonis/Lucid/Orm'
 import Env from '@ioc:Adonis/Core/Env'
 import Drive from '@ioc:Adonis/Core/Drive'
 
 import User from './User'
+import ApplicationReport from './ApplicationReport'
 
 export default class Application extends BaseModel {
   @column({ isPrimary: true })
@@ -27,13 +37,16 @@ export default class Application extends BaseModel {
   @belongsTo(() => User)
   public user: BelongsTo<typeof User>
 
+  @hasMany(() => ApplicationReport)
+  public reports: HasMany<typeof ApplicationReport>
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  @column()
+  @computed()
   public previewUrl: string
 
   @afterFetch()

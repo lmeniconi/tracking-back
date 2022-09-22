@@ -1,17 +1,27 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Drive from '@ioc:Adonis/Core/Drive'
+import Event from '@ioc:Adonis/Core/Event'
 
 import { kebabCase } from 'lodash'
+import axios from 'axios'
 
 import Application from 'App/Models/Application'
 
-import axios from 'axios'
 export default class ApplicationsController {
   public async index({ auth, response }: HttpContextContract) {
     const user = auth.user
     if (!user) return response.unauthorized()
 
-    return await Application.query().where('userId', user.id)
+    return await Application.query().where('userId', user.id).preload('reports')
+  }
+
+  public async show({ auth, params, response }: HttpContextContract) {
+    const user = auth.user
+    if (!user) return response.unauthorized()
+
+    const { id } = params
+
+    return await Application.query().where('id', id).where('userId', user.id).preload('reports')
   }
 
   public async store({ auth, request, response }: HttpContextContract) {
@@ -45,11 +55,28 @@ export default class ApplicationsController {
       contentType: 'image/png',
     })
 
-    return await Application.create({
+    const application = await Application.create({
       name,
       url,
       picture,
       userId: user.id,
     })
+
+    Event.emit('new:application', application)
+
+    return response.created()
+  }
+
+  public async destroy({ auth, response, params }: HttpContextContract) {
+    const user = auth.user
+    if (!user) return response.unauthorized()
+
+    const { id } = params
+    const application = await Application.findOrFail(id)
+
+    if (application.userId !== user.id) return response.unauthorized()
+
+    await Drive.delete(application.picture)
+    await application.delete()
   }
 }

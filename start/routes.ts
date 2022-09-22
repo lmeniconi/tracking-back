@@ -28,3 +28,7 @@ Route.group(() => {
 
   Route.resource('/applications', 'ApplicationsController').apiOnly()
 }).middleware('auth')
+
+Route.group(() => {
+  Route.post('/applications/reports/refresh', 'ApplicationReportsController.refresh')
+}).middleware('authApiToken')
