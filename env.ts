@@ -28,6 +28,7 @@ export default Env.rules({
   SESSION_DRIVER: Env.schema.string(),
 
   PG_HOST: Env.schema.string({ format: 'host' }),
+  PG_SSL: Env.schema.boolean(),
   PG_PORT: Env.schema.number(),
   PG_USER: Env.schema.string(),
   PG_PASSWORD: Env.schema.string.optional(),

@@ -41,6 +41,7 @@ const databaseConfig: DatabaseConfig = {
         user: Env.get('PG_USER'),
         password: Env.get('PG_PASSWORD', ''),
         database: Env.get('PG_DB_NAME'),
+        ssl: Env.get('NODE_ENV') === 'development' ? false : Env.get('PG_SSL'),
       },
       migrations: {
         naturalSort: true,
@@ -48,8 +49,7 @@ const databaseConfig: DatabaseConfig = {
       healthCheck: false,
       debug: false,
     },
-
-  }
+  },
 }
 
 export default databaseConfig
