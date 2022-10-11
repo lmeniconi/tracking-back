@@ -1,6 +1,7 @@
 // import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { performance } from 'perf_hooks'
 import { DateTime } from 'luxon'
+import Event from '@ioc:Adonis/Core/Event'
 
 import axios from 'axios'
 
@@ -18,7 +19,7 @@ export default class ApplicationReportsController {
     await Promise.all(promises)
   }
 
-  public static async refreshApplication(application: Application) {
+  public async refreshApplication(application: Application) {
     const report = new ApplicationReport()
     report.applicationId = application.id
 
@@ -32,6 +33,7 @@ export default class ApplicationReportsController {
     } catch (e) {
       res = e.response
       application.active = false
+      Event.emit('notify:application:shutdown', application)
     } finally {
       const endTime = performance.now()
 

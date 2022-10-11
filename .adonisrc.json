@@ -16,7 +16,8 @@
   "preloads": [
     "./start/routes",
     "./start/kernel",
-    "./start/events"
+    "./start/events",
+    "./start/telegramBot"
   ],
   "providers": [
     "./providers/AppProvider",

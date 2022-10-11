@@ -1,5 +1,8 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
+
+import Application from './Application'
+import TelegramChat from './TelegramChat'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -13,6 +16,18 @@ export default class User extends BaseModel {
 
   @column()
   public provider: 'auth0'
+
+  @column()
+  public telegramConnected: boolean
+
+  @column()
+  public telegramVerificationCode: string | null
+
+  @hasMany(() => Application)
+  public applications: HasMany<typeof Application>
+
+  @hasMany(() => TelegramChat)
+  public telegramChats: HasMany<typeof TelegramChat>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

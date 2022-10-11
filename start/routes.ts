@@ -25,6 +25,7 @@ Route.get('/authorized/auth0', 'AuthController.auth0Callback')
 
 Route.group(() => {
   Route.get('/me', 'AuthController.me')
+  Route.post('/me/telegram/verification-code', 'UsersController.generateTelegramVerificationCode')
 
   Route.resource('/applications', 'ApplicationsController').apiOnly()
 }).middleware('auth')

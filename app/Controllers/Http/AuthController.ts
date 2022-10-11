@@ -2,6 +2,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Env from '@ioc:Adonis/Core/Env'
 import { v4 as uuidv4 } from 'uuid'
 import axios from 'axios'
+
 import User from 'App/Models/User'
 
 export default class AuthController {
