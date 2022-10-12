@@ -8,6 +8,7 @@
 |
 */
 
+import Mail from '@ioc:Adonis/Addons/Mail'
 import Event from '@ioc:Adonis/Core/Event'
 
 import ApplicationReportsController from 'App/Controllers/Http/ApplicationReportsController'
@@ -30,11 +31,25 @@ Event.on('notify:application:shutdown', async (appToQuery: Application) => {
 
   if (!application || !application.user) return
 
-  const bot = useBot()
-  for (const chat of application.user.telegramChats) {
-    bot.telegram.sendMessage(
-      chat.telegramChatId,
-      `La aplicacion ${application.name} ha dejado de responder.`
-    )
+  const user = application.user
+
+  if (user.emailNotifications) {
+    await Mail.send((message) => {
+      message
+        .from('no-reply@riporter.com')
+        .to(user.email)
+        .subject(`Servicio ${application.name} Caido!`)
+        .htmlView('emails/applicationShutdown', { application })
+    })
+  }
+
+  if (user.telegramNotifications) {
+    const bot = useBot()
+    for (const chat of application.user.telegramChats) {
+      bot.telegram.sendMessage(
+        chat.telegramChatId,
+        `La aplicacion ${application.name} ha dejado de responder.`
+      )
+    }
   }
 })
