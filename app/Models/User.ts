@@ -18,7 +18,13 @@ export default class User extends BaseModel {
   public provider: 'auth0'
 
   @column()
+  public emailNotifications: boolean
+
+  @column()
   public telegramConnected: boolean
+
+  @column()
+  public telegramNotifications: boolean
 
   @column()
   public telegramVerificationCode: string | null

@@ -49,6 +49,7 @@ bot.on('message', async (ctx) => {
       await telegramChat.save()
 
       user.telegramConnected = true
+      user.telegramNotifications = true
       user.telegramVerificationCode = null
       await user.save()
 
