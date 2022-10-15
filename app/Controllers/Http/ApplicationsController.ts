@@ -1,6 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Drive from '@ioc:Adonis/Core/Drive'
-import Event from '@ioc:Adonis/Core/Event'
 
 import { kebabCase } from 'lodash'
 import axios from 'axios'
