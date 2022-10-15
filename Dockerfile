@@ -1,12 +1,10 @@
 FROM node:16-alpine
 
+RUN apk add --no-cache chromium-browser
+
 WORKDIR /app
-
-COPY package.json ./
-COPY yarn.lock ./
-RUN yarn
 COPY . .
-
+RUN yarn
 RUN yarn build
 
 WORKDIR /app/build
