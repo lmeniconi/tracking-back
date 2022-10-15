@@ -39,7 +39,14 @@ export default class ApplicationsController {
     }
 
     const puppeteer = require('puppeteer')
-    const browser = await puppeteer.launch()
+
+    const puppeteerOptions = {
+      headless: true,
+    }
+    if (process.env.NODE_ENV === 'production')
+      puppeteerOptions['executablePath'] = '/usr/bin/chromium-browser'
+
+    const browser = await puppeteer.launch(puppeteerOptions)
     const page = await browser.newPage()
     await page.goto(url)
     await page.waitForTimeout(500)
