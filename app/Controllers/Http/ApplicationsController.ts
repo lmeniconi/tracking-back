@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Drive from '@ioc:Adonis/Core/Drive'
+import Env from '@ioc:Adonis/Core/Env'
 
 import { kebabCase } from 'lodash'
 import axios from 'axios'
@@ -43,7 +44,7 @@ export default class ApplicationsController {
     const puppeteerOptions = {
       headless: true,
     }
-    if (process.env.NODE_ENV === 'production')
+    if (Env.get('NODE_ENV') === 'production')
       puppeteerOptions['executablePath'] = '/usr/bin/chromium-browser'
 
     const browser = await puppeteer.launch(puppeteerOptions)
