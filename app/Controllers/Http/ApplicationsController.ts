@@ -6,6 +6,7 @@ import { kebabCase } from 'lodash'
 import axios from 'axios'
 
 import Application from 'App/Models/Application'
+import ApplicationReportsController from 'App/Controllers/Http/ApplicationReportsController'
 
 export default class ApplicationsController {
   public async index({ auth, response }: HttpContextContract) {
@@ -62,7 +63,8 @@ export default class ApplicationsController {
       userId: user.id,
     })
 
-    Event.emit('new:application', application)
+    const applicationReportsController = new ApplicationReportsController()
+    applicationReportsController.refreshApplication(application)
 
     return response.created()
   }

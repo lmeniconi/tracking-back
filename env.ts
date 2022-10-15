@@ -43,7 +43,7 @@ export default Env.rules({
   AUTH0_CLIENT_ID: Env.schema.string(),
   AUTH0_CLIENT_SECRET: Env.schema.string(),
 
-  TELEGRAM_BOT_ACTIVE: Env.schema.boolean(),
+  TELEGRAM_BOT_ENABLED: Env.schema.boolean(),
   TELEGRAM_BOT_TOKEN: Env.schema.string(),
 
   CACHE_VIEWS: Env.schema.boolean(),

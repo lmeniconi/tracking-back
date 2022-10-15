@@ -6,6 +6,15 @@ export default class AppProvider {
 
   public register() {
     // Register your own bindings
+
+    // Telegram Bot Provider
+    this.app.container.singleton('Bot/Telegram', () => {
+      const { telegramBotConfig } = this.app.config.get('telegramBot')
+      if (!telegramBotConfig.enabled) return null
+
+      const TelegramBot = require('./TelegramBotProvider').default
+      return new TelegramBot(telegramBotConfig)
+    })
   }
 
   public async boot() {
