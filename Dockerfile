@@ -1,6 +1,6 @@
 FROM node:16-alpine
 
-RUN apk add --no-cache chromium-browser
+RUN apk add --no-cache chromium
 
 WORKDIR /app
 COPY . .
