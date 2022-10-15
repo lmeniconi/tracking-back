@@ -43,6 +43,7 @@ export default class ApplicationsController {
 
     const puppeteerOptions = {
       headless: true,
+      args: ['--no-sandbox'],
     }
     if (Env.get('NODE_ENV') === 'production')
       puppeteerOptions['executablePath'] = '/usr/bin/chromium-browser'
