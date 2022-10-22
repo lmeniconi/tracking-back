@@ -21,6 +21,7 @@ export default Env.rules({
 
   APP_NAME: Env.schema.string(),
   APP_URL: Env.schema.string(),
+  FRONTEND_URL: Env.schema.string(),
   APP_KEY: Env.schema.string(),
   APP_API_TOKEN: Env.schema.string(),
   DRIVE_DISK: Env.schema.enum(['local'] as const),
@@ -44,7 +45,7 @@ export default Env.rules({
   AUTH0_CLIENT_SECRET: Env.schema.string(),
 
   TELEGRAM_BOT_ENABLED: Env.schema.boolean(),
-  TELEGRAM_BOT_TOKEN: Env.schema.string(),
+  TELEGRAM_BOT_TOKEN: Env.schema.string.optional(),
 
   CACHE_VIEWS: Env.schema.boolean(),
 })

@@ -20,8 +20,10 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.get('/login/auth0', 'AuthController.auth0')
-Route.get('/authorized/auth0', 'AuthController.auth0Callback')
+Route.get('/login', 'AuthController.auth0')
+Route.get('/authorized', 'AuthController.auth0Callback')
+Route.get('/logout', 'AuthController.logout').middleware('auth')
+Route.get('/logout/callback', 'AuthController.logoutCallback')
 
 Route.group(() => {
   Route.get('/me', 'AuthController.me')

@@ -24,7 +24,7 @@ export default class AuthController {
         '?' +
         new URLSearchParams({
           client_id: Env.get('AUTH0_CLIENT_ID'),
-          redirect_uri: Env.get('APP_URL') + '/authorized/auth0',
+          redirect_uri: Env.get('APP_URL') + '/authorized',
           response_type: 'code',
           scope: 'openid profile email',
           state,
@@ -44,7 +44,7 @@ export default class AuthController {
       client_secret: Env.get('AUTH0_CLIENT_SECRET'),
       code,
       grant_type: 'authorization_code',
-      redirect_uri: Env.get('APP_URL') + '/authorized/auth0',
+      redirect_uri: Env.get('APP_URL') + '/authorized',
     })
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -67,6 +67,22 @@ export default class AuthController {
 
     await auth.login(user)
 
-    return response.redirect(session.get('redirectUri'))
+    return response.redirect(session.get('redirectUri') || Env.get('FRONTEND_URL'))
+  }
+
+  public async logout({ response }) {
+    return response.redirect(
+      Env.get('AUTH0_DOMAIN') +
+        '/v2/logout?' +
+        new URLSearchParams({
+          client_id: Env.get('AUTH0_CLIENT_ID'),
+          returnTo: Env.get('APP_URL') + '/logout/callback',
+        }).toString()
+    )
+  }
+
+  public async logoutCallback({ auth, response }) {
+    await auth.logout()
+    return response.redirect(Env.get('FRONTEND_URL'))
   }
 }
