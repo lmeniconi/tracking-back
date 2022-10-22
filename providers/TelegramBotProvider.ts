@@ -9,7 +9,7 @@ export default class TelegramBotProvider {
   protected wasAsked: { [index: string]: string } = {}
 
   constructor(config: typeof telegramBotConfig) {
-    this.bot = new Telegraf(config.token)
+    this.bot = new Telegraf(config?.token || '')
     this.init()
   }
 
