@@ -33,10 +33,10 @@ export default class AuthController {
   }
 
   public async auth0Callback({ auth, request, response, session }: HttpContextContract) {
-    const state = request.input('state')
-    const sessionState = session.get('state')
+    // const state = request.input('state')
+    // const sessionState = session.get('state')
 
-    if (state !== sessionState) return response.badRequest('Invalid state')
+    // if (state !== sessionState) return response.badRequest('Invalid state')
 
     const code = request.input('code')
     let res = await axios.post(Env.get('AUTH0_DOMAIN') + '/oauth/token', {
