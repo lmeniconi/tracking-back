@@ -59,6 +59,8 @@
     "@adonisjs/repl": "^3.1.11",
     "@adonisjs/session": "^6.4.0",
     "@adonisjs/view": "^6.2.0",
+    "@sentry/node": "^7.17.1",
+    "@sentry/tracing": "^7.17.1",
     "axios": "^0.27.2",
     "lodash": "^4.17.21",
     "luxon": "^3.0.3",
