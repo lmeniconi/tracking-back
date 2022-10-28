@@ -24,9 +24,10 @@ export default Env.rules({
   FRONTEND_URL: Env.schema.string(),
   APP_KEY: Env.schema.string(),
   APP_API_TOKEN: Env.schema.string(),
-  DRIVE_DISK: Env.schema.enum(['local'] as const),
 
+  DRIVE_DISK: Env.schema.enum(['local'] as const),
   SESSION_DRIVER: Env.schema.string(),
+  CACHE_VIEWS: Env.schema.boolean(),
 
   PG_HOST: Env.schema.string({ format: 'host' }),
   PG_SSL: Env.schema.boolean(),
@@ -47,5 +48,5 @@ export default Env.rules({
   TELEGRAM_BOT_ENABLED: Env.schema.boolean(),
   TELEGRAM_BOT_TOKEN: Env.schema.string(),
 
-  CACHE_VIEWS: Env.schema.boolean(),
+  SENTRY_DSN: Env.schema.string(),
 })

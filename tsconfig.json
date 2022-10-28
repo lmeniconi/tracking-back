@@ -1,8 +1,9 @@
 {
   "extends": "adonis-preset-ts/tsconfig.json",
   "include": [
-    "**/*"
-, "contracts/bots/.ts"  ],
+    "**/*",
+    "contracts/bots/.ts"
+  ],
   "exclude": [
     "node_modules",
     "build"
@@ -33,7 +34,8 @@
       "@adonisjs/lucid",
       "@adonisjs/auth",
       "@adonisjs/mail",
-      "@adonisjs/view"
+      "@adonisjs/view",
+      "adonis5-sentry"
     ]
   }
 }
