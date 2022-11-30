@@ -12,8 +12,7 @@ export default class ApplicationReportsController {
   public async refresh() {
     const applications = await Application.query()
 
-    const promises = []
-    // @ts-ignore
+    const promises: Promise<void>[] = []
     for (const application of applications) promises.push(this.refreshApplication(application))
 
     await Promise.all(promises)
@@ -33,7 +32,11 @@ export default class ApplicationReportsController {
     } catch (e) {
       res = e.response
       application.active = false
-      Event.emit('notify:application:shutdown', application)
+
+      Event.emit('notify:application:shutdown', {
+        appToQuery: application,
+        errorStatusCode: res?.status || 0,
+      })
     } finally {
       const endTime = performance.now()
 
