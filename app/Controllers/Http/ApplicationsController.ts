@@ -22,7 +22,13 @@ export default class ApplicationsController {
 
     const { id } = params
 
-    return await Application.query().where('id', id).where('userId', user.id).preload('reports')
+    return await Application.query()
+      .where('id', id)
+      .where('userId', user.id)
+      .preload('reports', (query) => {
+        query.orderBy('createdAt', 'desc')
+      })
+      .firstOrFail()
   }
 
   public async store({ auth, request, response }: HttpContextContract) {
